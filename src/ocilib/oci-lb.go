@@ -2,6 +2,7 @@ package ocilib
 
 import (
 	"context"
+	"fmt"
 
 	"github.com/oracle/oci-go-sdk/common"
 	"github.com/oracle/oci-go-sdk/loadbalancer"
@@ -45,5 +46,21 @@ func GetLBlist() []string {
 
 func debugprint(c common.ConfigurationProvider) {
 	s1, _ := c.PrivateRSAKey()
-	println("PrivateRSAKey", s1)
+	fmt.Println("PrivateRSAKey", s1)
+
+	s2, _ := c.KeyID()
+	fmt.Println("KeyID", s2)
+
+	s3, _ := c.TenancyOCID()
+	fmt.Println("TenancyOCID", s3)
+
+	s4, _ := c.UserOCID()
+	fmt.Println("UserOCID", s4)
+
+	s5, _ := c.KeyFingerprint()
+	fmt.Println("KeyFingerprint", s5)
+
+	s6, _ := c.Region()
+	fmt.Println("Region", s6)
+
 }
