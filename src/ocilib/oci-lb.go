@@ -17,7 +17,7 @@ func GetLBlist() []string {
 	}
 
 	debugprint(GetEnvConfigProvider())
-	debugprint(common.DefaultConfigProvider())
+	//debugprint(common.DefaultConfigProvider())
 
 	ctx := context.Background()
 
