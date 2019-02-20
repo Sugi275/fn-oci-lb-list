@@ -2,6 +2,7 @@ package ocilib
 
 import (
 	"crypto/rsa"
+	b64 "encoding/base64"
 	"fmt"
 	"os"
 
@@ -17,24 +18,27 @@ type envConfigProvider struct {
 }
 
 func (p envConfigProvider) PrivateRSAKey() (key *rsa.PrivateKey, err error) {
-	envKey := "OCI_PrivateRSAKey"
+	envKeyEncoded := "OCI_PrivateRSAKeyEncoded"
 	envKeyPassphrase := "OCI_PrivateRSAKey_passphrase"
 
-	var privateKey string
+	var privateKeyEncoded string
 	var privateKeyPassphrase string
 	var ok bool
 
-	if privateKey, ok = os.LookupEnv(envKey); !ok {
-		err = fmt.Errorf("can not read PrivateKey from environment variable %s", envKey)
+	if privateKeyEncoded, ok = os.LookupEnv(envKeyEncoded); !ok {
+		err = fmt.Errorf("can not read PrivateKeyEncoded from environment variable %s", envKeyEncoded)
 		return nil, err
 	}
 
 	if privateKeyPassphrase, ok = os.LookupEnv(envKeyPassphrase); !ok {
-		err = fmt.Errorf("can not read PrivateKeyPassphrase from environment variable %s", envKey)
-		return nil, err
+		// err = fmt.Errorf("can not read PrivateKeyPassphrase from environment variable %s", envKeyPassphrase)
+		// err = fmt.Errorf("and set kuuhaku to privateKeyPassphrase")
+		privateKeyPassphrase = ""
 	}
 
-	key, err = common.PrivateKeyFromBytes([]byte(privateKey), &privateKeyPassphrase)
+	privateKeyDecoded, _ := b64.StdEncoding.DecodeString(privateKeyEncoded)
+
+	key, err = common.PrivateKeyFromBytes(privateKeyDecoded, &privateKeyPassphrase)
 	return key, nil
 }
 

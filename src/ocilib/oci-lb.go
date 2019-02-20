@@ -3,6 +3,7 @@ package ocilib
 import (
 	"context"
 
+	"github.com/oracle/oci-go-sdk/common"
 	"github.com/oracle/oci-go-sdk/loadbalancer"
 )
 
@@ -13,6 +14,9 @@ func GetLBlist() []string {
 	if err != nil {
 		panic(err)
 	}
+
+	debugprint(GetEnvConfigProvider())
+	debugprint(common.DefaultConfigProvider())
 
 	ctx := context.Background()
 
@@ -37,4 +41,9 @@ func GetLBlist() []string {
 	}
 
 	return loadbalancersName
+}
+
+func debugprint(c common.ConfigurationProvider) {
+	s1, _ := c.PrivateRSAKey()
+	println("PrivateRSAKey", s1)
 }
