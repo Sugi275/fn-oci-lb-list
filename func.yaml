@@ -1,0 +1,6 @@
+schema_version: 20180708
+name: oci-lb-list
+version: 0.0.24
+runtime: docker
+entrypoint: ./func
+format: http-stream
