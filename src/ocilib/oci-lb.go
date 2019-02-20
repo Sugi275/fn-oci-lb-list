@@ -11,14 +11,14 @@ import (
 // GetLBlist OCIのLB一覧を取得する
 func GetLBlist() []string {
 	// LB用のクライアントを生成
-	//client, err := loadbalancer.NewLoadBalancerClientWithConfigurationProvider(GetEnvConfigProvider()
-	client, err := loadbalancer.NewLoadBalancerClientWithConfigurationProvider(common.DefaultConfigProvider())
+	client, err := loadbalancer.NewLoadBalancerClientWithConfigurationProvider(GetEnvConfigProvider())
+	//client, err := loadbalancer.NewLoadBalancerClientWithConfigurationProvider(common.DefaultConfigProvider())
 	if err != nil {
 		panic(err)
 	}
 
 	debugprint(GetEnvConfigProvider())
-	debugprint(common.DefaultConfigProvider())
+	//debugprint(common.DefaultConfigProvider())
 
 	ctx := context.Background()
 
